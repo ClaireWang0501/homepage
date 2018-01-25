@@ -1,10 +1,11 @@
 const path = require('path');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: ['./src/js/animation.js', './src/styles/animation.sass'],
   output: {
-    filename: 'bundle.js',
+    filename: './js/animation.bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
   watch: true,
@@ -16,15 +17,26 @@ module.exports = {
       },
       {
         test:/\.(s*)ass$/,
-        loaders:['style-loader','css-loader', 'sass-loader'],
+        use: ExtractTextPlugin.extract({
+          use: [{
+              loader: "css-loader",
+              options: {
+                minimize: true
+              }
+          }, {
+              loader: "sass-loader",
+          }],
+          fallback: "style-loader"
+        })
       }
     ]
   },
   plugins: [
     new HtmlWebpackPlugin({
-      title: 'My App',
       hash: true,
-      template: './src/index.pug'
-    })
+      template: './src/pug/animation.pug',
+      filename: './html/animation.html'
+    }),
+    new ExtractTextPlugin("./styles/animation.css"),
   ],
 };
