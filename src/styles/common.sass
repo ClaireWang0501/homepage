@@ -1,0 +1,55 @@
+.left
+  float: left
+
+.right
+  float: right
+
+$header-height: 50px
+
+body
+  > header
+    position: relative
+    height: $header-height
+    width: 100%
+    background-color: white
+    box-shadow: 0 2px 4px 0 $themeShadow-Grey
+    padding: 0 10px
+    z-index: 10
+
+    button
+      width: $header-height
+      height: $header-height
+      background-size: $header-height * 0.5 $header-height * 0.5
+      background-repeat: no-repeat
+      background-position: center
+      position: relative
+
+      &.is-active:before
+        animation: pulse 0.6s linear
+
+      &:before
+        content: ''
+        display: block
+        position: absolute
+        top: 0
+        left: 0
+        width: $header-height
+        height: $header-height
+        border-radius: 50%
+        background: $themeBackground-Grey 
+        opacity: 0  
+
+        @keyframes pulse
+          0%
+            opacity: 1
+            transform: scale(0)
+          100%
+            opacity: 0
+            transform: scale(1)
+
+    .category
+      background-image: url(../images/icon/category.png)
+  
+  > .container
+    width: 100%
+    height: calc(100% - #{$header-height})

@@ -9,15 +9,41 @@ html(lang="en")
       include ../../dist/styles/animation.css 
 
   body
-    h1 Pug
-    #container.col
-      if youAreUsingPug
-        p You are amazing
-      else
-        p Get on it! Hahaha!
-      p.
-        Pug is a terse and simple templating language with a
-        strong focus on performance and powerful features.
+    include ./header.pug
+    
+    .container
+      nav
+        ul
+          li
+            a(href="#") Drop Down Menu
 
-    script
-      include ../../dist/js/animation.bundle.js 
+          li
+            a(href="#") Notifications
+
+          li
+            a(href="#") Spinners & Loaders
+
+          li
+            a(href="#") Step By Step Form
+
+          li
+            a(href="#") Load Animation
+
+      .main
+        header Drop Down Menu
+        section(class="nav-menu")
+          nav: ul
+            - var i = 0;
+              while (i++ < 4)
+                li style #{i}
+                  ul(class="drop-menu menu-"+i)
+                    li uno
+                    li dos
+                    li tres
+                    li cuatro
+                    li cinco
+                    li seis
+          
+
+
+

@@ -3,12 +3,19 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-  entry: ['./src/js/animation.js', './src/styles/animation.sass'],
+  entry: {
+    'animation': './src/js/animation.js', 
+    'header': './src/js/header.js', 
+  },
   output: {
-    filename: './js/animation.bundle.js',
+    filename: './js/[name].bundle.js',
     path: path.resolve(__dirname, 'dist')
   },
-  watch: true,
+  // watch: true,
+  devServer: {
+    contentBase: path.join(__dirname, "../dist/"),
+    port: 9000
+  },
   module: {
     rules: [
       {
@@ -19,15 +26,25 @@ module.exports = {
         test:/\.(s*)ass$/,
         use: ExtractTextPlugin.extract({
           use: [{
-              loader: "css-loader",
-              options: {
-                minimize: true
-              }
+            loader: "css-loader",
+            options: {
+              minimize: true
+            }
           }, {
-              loader: "sass-loader",
+            loader: "sass-loader",
           }],
           fallback: "style-loader"
         })
+      },
+      {
+        test: /\.(png|jp(e*)g|svg)$/,  
+        use: [{
+          loader: 'url-loader',
+          options: { 
+            limit: 8000, // Convert images < 8kb to base64 strings
+            name: 'images/icon/[hash]-[name].[ext]'
+          } 
+        }]
       }
     ]
   },
