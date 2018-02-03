@@ -15,10 +15,10 @@ html(lang="en")
       nav
         ul
           li
-            a(href="#") Drop Down Menu
+            a(href="#nav-menu") Drop Down Menu
 
           li
-            a(href="#") Notifications
+            a(href="#notification") Notifications
 
           li
             a(href="#") Spinners & Loaders
@@ -30,7 +30,7 @@ html(lang="en")
             a(href="#") Load Animation
 
       .main
-        header Drop Down Menu
+        header(id="nav-menu") Drop Down Menu
         section(class="nav-menu")
           nav: ul
             - var i = 0;
@@ -44,7 +44,7 @@ html(lang="en")
                     li cinco
                     li seis
 
-        header Notifications
+        header(id="notification") Notifications
         section.section-notification
           ul.nav
             li: i.material-icons home

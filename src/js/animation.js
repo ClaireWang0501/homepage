@@ -4,6 +4,15 @@ const $ = require("jquery");
 
 $(function () {
 
+  $('a[href^="#"]').on('click', function (e) {
+    e.preventDefault();
+  
+    var target = this.hash;
+    $('.main').animate({
+      'scrollTop': $(target).offset().top
+    }, 500, 'swing');
+  });
+
   $('.section-notification .nav li').click(function(){
     $(this).addClass('is-active').siblings().removeClass('is-active');
 
