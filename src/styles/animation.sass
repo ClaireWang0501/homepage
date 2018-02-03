@@ -4,6 +4,28 @@
 
 $nav-width: 240px
 
+@font-face 
+  font-family: 'Material Icons'
+  font-style: normal
+  font-weight: 400
+  src: url(http://s2b.oss-cn-shanghai.aliyuncs.com/Fashion/users/rootadmin/2fcrYFNaTjcS6g4U3t-Y5UEw0lE80llgEseQY3FEmqw.woff2) format('woff2')
+
+.material-icons
+  font-family: 'Material Icons'
+  font-weight: normal
+  font-style: normal
+  font-size: 24px
+  line-height: 1
+  letter-spacing: normal
+  text-transform: none
+  display: inline-block
+  white-space: nowrap
+  word-wrap: normal
+  direction: ltr
+  -webkit-font-feature-settings: 'liga'
+  -webkit-font-smoothing: antialiased
+
+
 body
   background-color: $themeColor-Light
 
@@ -32,7 +54,7 @@ body
       position: absolute
       right: 0
       width: calc(100% - #{$nav-width})
-      height: 100%
+      height: calc(100% - #{$header-height})
       background-color: $themeBackground-LightGrey
       transition: all 0.5s
       overflow: auto
@@ -46,167 +68,394 @@ body
         padding-left: 30px
 
       section
+        position: relative
         background-color: #fff
 
         &.nav-menu
           height: 560px
 
-        nav
-          padding: 50px
-          text-align: center
-          
-          > ul
-            list-style: none
-            padding: 0
-            margin: 0
-            display: inline-block
-            background: #ddd
-            border-radius: 5px
+          nav
+            padding: 50px
+            text-align: center
             
-            > li
-              float: left
-              width: 150px
-              height: 65px
-              line-height: 65px
-              position: relative
-              text-transform: uppercase
-              font-size: 14px
-              color: rgba(0,0,0,0.7)
-              cursor: pointer
+            > ul
+              list-style: none
+              padding: 0
+              margin: 0
+              display: inline-block
+              background: #ddd
+              border-radius: 5px
+              
+              > li
+                float: left
+                width: 150px
+                height: 65px
+                line-height: 65px
+                position: relative
+                text-transform: uppercase
+                font-size: 14px
+                color: rgba(0,0,0,0.7)
+                cursor: pointer
+                
+                &:hover
+                  background: #d5d5d5
+                  border-radius: 5px
+                  
+          ul.drop-menu
+            position: absolute
+            top: 100%
+            left: 0%
+            width: 100%
+            padding: 0
+            z-index: 1
+            
+            li
+              background: #666
+              color: rgba(255,255,255,0.7)
               
               &:hover
-                background: #d5d5d5
-                border-radius: 5px
-                
-        ul.drop-menu
-          position: absolute
-          top: 100%
-          left: 0%
-          width: 100%
-          padding: 0
+                background: #606060
+              
+              &:last-child
+                border-radius: 0px 0px 5px 5px
+
+          // Default Trigger    
+
+          ul.drop-menu li
+            display: none // HIDE
+
+          li:hover > ul.drop-menu li
+            display: block // SHOW
+
+          // MENU 1 -----------------------
+          li:hover > ul.drop-menu.menu-1 
+            perspective: 1000px
+
+            li
+              opacity: 0
+
+              @for $i from 1 through 6
+                &:nth-child(#{$i})
+                  animation: 
+                    name: menu1
+                    duration: 300ms
+                    delay: (150ms * $i) - 300
+                    timing-function: ease-in-out
+                    fill-mode: forwards
+
+            @keyframes menu1
+              0%
+                opacity: 0
+                transform: rotateY(-90deg) translateY(30px)
+              100%
+                opacity: 1
+                transform: rotateY(0deg) translateY(0px)
+
+          // MENU 2 -----------------------
+          li:hover > ul.drop-menu.menu-2
+            perspective: 1000px
+
+            li
+              opacity: 0
+              transform-origin: top center
+
+              @for $i from 1 through 6
+                &:nth-child(#{$i})
+                  animation: 
+                    name: menu2
+                    duration: 300ms
+                    delay: (150ms * $i) - 300
+                    timing-function: ease-in-out
+                    fill-mode: forwards
+
+            @keyframes menu2
+              0%
+                opacity: 0
+                transform: rotateX(-90deg)
+
+              60%
+                transform: rotateX(60deg)
+
+              100%
+                opacity: 1
+                transform: rotateX(0deg)
+
+          // MENU 3 -----------------------
+          li:hover > ul.drop-menu.menu-3
+            perspective: 1000px
+
+            li
+              opacity: 0
+
+              @for $i from 1 through 6
+                &:nth-child(#{$i})
+                  animation: 
+                    name: menu3
+                    duration: 300ms
+                    delay: (150ms * $i) - 300
+                    timing-function: ease-in-out
+                    fill-mode: forwards
+
+            @keyframes menu3
+              0%
+                opacity: 0
+                transform: scale(0.3) translateY(-60px)
+
+              30%
+                transform: scale(1.2) translateY(10px)
+
+              100%
+                opacity: 1
+                transform: scale(1) translateY(0px)
+
+          // MENU 4 -----------------------
+          li:hover > ul.drop-menu.menu-4
+            perspective: 1000px
+
+            li
+              opacity: 0
+              transform-origin: top right
+
+              @for $i from 1 through 6
+                &:nth-child(#{$i})
+                  animation: 
+                    name: menu4
+                    duration: 300ms
+                    delay: (150ms * $i) - 300
+                    timing-function: ease-in-out
+                    fill-mode: forwards
+
+            @keyframes menu4
+              0%
+                opacity: 0
+                transform: rotate(-30deg) translateX(30px)
+
+              100%
+                opacity: 1
+                transform: rotate(0deg) translateX(0px)
+
+
           
-          li
-            background: #666
-            color: rgba(255,255,255,0.7)
+        // Notifcations section
+        &.section-notification
+
+          margin: 0px auto 
+          min-height: 60vh
+          display: flex
+          justify-content: center
+          align-items: center
+
+          .nav
+            display: flex
+            background: #333
+            color: white
+            border-radius: 4px
+            box-shadow: 0px 23px 30px -20px rgba(0,0,0,0.4)
+        
+          .nav > li
+            padding: 20px 30px
+            width: 24px
+            height: 24px
+            cursor: pointer
+            color: rgba(255,255,255,0.6)
+            position: relative
+            transition: all 200ms ease-in-out
+            perspective: 1000px
+
+            &:last-child
+              border-right: none
             
             &:hover
-              background: #606060
+              background: #444
             
-            &:last-child
-              border-radius: 0px 0px 5px 5px
+            &.is-active
+              box-shadow: 0px -4px 0px #0097A7 inset
+              background: #222
+              color: rgba(255,255,255,1)
+              
+              .notifications
+                display: flex
+                animation: note 800ms ease-in-out forwards
+                transform-origin: center 60px
+                               
+                @keyframes note
+                  0%
+                    opacity: 0
+                    transform: scale(0.1) rotate(30deg) translateY(50px) rotateX(90deg)
+                  
+                  50%
+                    transform: rotate(-10deg) rotateX(-2deg)
+                    opacity: 1
+                  70%
+                    transform: rotate(3deg)
+                  
+                  100%                    
+                    transform: scale(1)
+                
+          .notifications
+            background: #0097A7
+            display: none
+            border-radius: 4px
+            position: absolute
+            bottom: 100%
+            left: 50%
+            padding: 0px 10px
+            margin-bottom: 10px
+            margin-left: -95px
+            cursor: default
+            
+            &:after
+              top: 100%
+              left: 50%
+              border: solid transparent
+              content: " "
+              height: 0
+              width: 0
+              position: absolute
+              pointer-events: none
+              border-color: rgba(0, 151, 167, 0)
+              border-top-color: #0097A7
+              border-width: 16px
+              margin-left: -16px
+            
+            li
+              padding: 10px
+              font-family: 'Roboto', sans-serif
+              color: white
+              font-size: 18px
+              
+              .material-icons
+                font-size: 18px
+              
+              span
+                display: inline-block
+                vertical-align: top
+                margin-left: 8px
 
-        // Default Trigger    
-
-        ul.drop-menu li
-          display: none // HIDE
-
-        li:hover > ul.drop-menu li
-          display: block // SHOW
-
-        // MENU 1 -----------------------
-        li:hover > ul.drop-menu.menu-1 
-          perspective: 1000px
-
-          li
+          .alert-element
+            position: absolute
+            bottom: 30px
+            left: 30px
+            color: rgba(255,255,255,0.7)
+            border-radius: 4px
+            font-weight: 400
+            display: flex
+            align-items: stretch
+            padding-right: 20px
+            perspective: 1000px
             opacity: 0
-
-            @for $i from 1 through 6
-              &:nth-child(#{$i})
-                animation: 
-                  name: menu1
-                  duration: 300ms
-                  delay: (150ms * $i) - 300
-                  timing-function: ease-in-out
-                  fill-mode: forwards
-
-          @keyframes menu1
-            0%
+            transform-origin: bottom left
+            transform: rotate(90deg) scale(0.5) translate(100px, -300px) rotateX(90deg)
+            transition: all 450ms cubic-bezier(0, 0.6, 0.35, 1.4)         
+            
+            .icon
+              padding: 20px
+              background: #0097A7
+              color: white
+              border-radius: 4px 0px 0px 4px
+              overflow: hidden
+              
+              i
+                transform: scale(0.2) translateY(50px)              
+                opacity: 0
+                transition: all 400ms cubic-bezier(0, 0.6, 0.35, 1.4) 600ms
+                        
+            .text
+              background: rgba(0,0,0,0.8)
+              padding: 0 20px
+              display: flex
+              align-items: center
+              border-radius: 0px 4px 4px 0px
+              transform: rotateY(90deg)
+              transition: all 500ms ease-in-out 1000ms
+              transform-origin: center left
               opacity: 0
-              transform: rotateY(-90deg) translateY(30px)
-            100%
+                                    
+            &.is-active
               opacity: 1
-              transform: rotateY(0deg) translateY(0px)
+              transform: rotate(0deg) scale(1)
+              
+              i
+                transform: scale(1) translateY(0px)
+                opacity: 1
 
-        // MENU 2 -----------------------
-        li:hover > ul.drop-menu.menu-2
-          perspective: 1000px
+              .text
+                transform: rotateY(0deg)
+                opacity: 1
 
-          li
+          .overlay
+            position: absolute
+            top: 0
+            left: 0
+            right: 0
+            bottom: 0
+            background: rgba(0,0,0,0.7)
+            display: flex
+            justify-content: center
+            align-items: center
+            display: none
+            
+            .modal
+              width: 450px
+              box-shadow: 0px 23px 30px -20px rgba(0,0,0,0.4)
+              
+              .title
+                background: #E9CF3C
+                color: white
+                border-radius: 4px 4px 0px 0px
+                text-align: center
+                line-height: 48px
+                font-weight: 700
+                
+              .body
+                background: white
+                border-radius: 0px 0px 4px 4px
+                line-height: 20px
+                display: flex
+                align-items: stretch
+                
+                .text
+                  padding: 30px
+                
+                  p
+                    margin-bottom: 20px
+                    
+                .img
+                  height: 180px
+                  width: 140px
+                  border-bottom-left-radius: 4px
+                  flex-shrink: 0
+                  background:
+                    size: cover
+                    position: center
+                                       
+            &.is-active
+              display: flex
+              animation: overlayAnim 3s ease-in-out forwards
+              
+              .modal
+                animation: modalAnim 3s ease-in-out forwards
+                           
+        @keyframes overlayAnim
+          0%, 100%
+            background-color: rgba(0,0,0,0)
+          15%, 85%
+            background-color: rgba(0,0,0,0.3)
+                    
+        @keyframes modalAnim
+          0%
+            transform: translateX(-200%) rotate(-90deg)
             opacity: 0
-            transform-origin: top center
-
-            @for $i from 1 through 6
-              &:nth-child(#{$i})
-                animation: 
-                  name: menu2
-                  duration: 300ms
-                  delay: (150ms * $i) - 300
-                  timing-function: ease-in-out
-                  fill-mode: forwards
-
-          @keyframes menu2
-            0%
-              opacity: 0
-              transform: rotateX(-90deg)
-
-            60%
-              transform: rotateX(60deg)
-
-            100%
-              opacity: 1
-              transform: rotateX(0deg)
-
-        // MENU 3 -----------------------
-        li:hover > ul.drop-menu.menu-3
-          perspective: 1000px
-
-          li
-            opacity: 0
-
-            @for $i from 1 through 6
-              &:nth-child(#{$i})
-                animation: 
-                  name: menu3
-                  duration: 300ms
-                  delay: (150ms * $i) - 300
-                  timing-function: ease-in-out
-                  fill-mode: forwards
-
-          @keyframes menu3
-            0%
-              opacity: 0
-              transform: scale(0.3) translateY(-60px)
-
-            30%
-              transform: scale(1.2) translateY(10px)
-
-            100%
-              opacity: 1
-              transform: scale(1) translateY(0px)
-
-        // MENU 4 -----------------------
-        li:hover > ul.drop-menu.menu-4
-          perspective: 1000px
-
-          li
-            opacity: 0
-            transform-origin: top right
-
-            @for $i from 1 through 6
-              &:nth-child(#{$i})
-                animation: 
-                  name: menu4
-                  duration: 300ms
-                  delay: (150ms * $i) - 300
-                  timing-function: ease-in-out
-                  fill-mode: forwards
-
-          @keyframes menu4
-            0%
-              opacity: 0
-              transform: rotate(-30deg) translateX(30px)
-
-            100%
-              opacity: 1
-              transform: rotate(0deg) translateX(0px)
-
+          
+          20%
+            transform: translateX(4%) rotate(4deg)
+          
+          30%, 70%
+            transform: translateX(0%)
+            opacity: 1
+          
+          80%
+            transform: translateX(-4%) rotate(-4deg)
+          
+          100%
+            transform: translateX(200%) rotate(90deg)
